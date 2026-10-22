@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="zh-TW" class="scroll-smooth">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11120150315"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- 1. Google tag (gtag.js) - 基礎追蹤代碼 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11120150315"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'AW-11120150315');
-<!-- Event snippet for 取得路線 conversion page -->
-<script>
-  gtag('event', 'conversion', {
-      'send_to': 'AW-11120150315/tfMMCO-Yt6UdEKuOwLYp',
-      'value': 1.0,
-      'currency': 'TWD'
-  });
-</script>
-    
-</script>
+      gtag('config', 'AW-11120150315');
+
+      // 2. Event snippet for 取得路線 conversion page (點擊導航按鈕時觸發)
+      function trackNavigation() {
+        gtag('event', 'conversion', {
+            'send_to': 'AW-11120150315/tfMMCO-Yt6UdEKuOwLYp',
+            'value': 1.0,
+            'currency': 'TWD'
+        });
+      }
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>旺來貨車出租 | 專業、快速、價格透明</title>
@@ -320,7 +321,7 @@
                                     </span>
                                 </p>
                             </div>
-                            <a href="https://maps.google.com/?q=新北市中和區圓通路164號" target="_blank" class="flex items-center justify-center w-full py-3 bg-dark text-white hover:bg-gray-800 font-medium rounded-xl transition-colors mt-auto">
+                            <a href="https://maps.google.com/?q=新北市中和區圓通路164號" target="_blank" onclick="trackNavigation()" class="flex items-center justify-center w-full py-3 bg-dark text-white hover:bg-gray-800 font-medium rounded-xl transition-colors mt-auto">
                                 <i class="ph-fill ph-navigation-arrow mr-2"></i> 開啟 Google 導航
                             </a>
                         </div>
@@ -356,7 +357,7 @@
                                     </span>
                                 </p>
                             </div>
-                            <a href="https://maps.google.com/?q=台北市萬華區莒光路265號" target="_blank" class="flex items-center justify-center w-full py-3 bg-dark text-white hover:bg-gray-800 font-medium rounded-xl transition-colors mt-auto">
+                            <a href="https://maps.google.com/?q=台北市萬華區莒光路265號" target="_blank" onclick="trackNavigation()" class="flex items-center justify-center w-full py-3 bg-dark text-white hover:bg-gray-800 font-medium rounded-xl transition-colors mt-auto">
                                 <i class="ph-fill ph-navigation-arrow mr-2"></i> 開啟 Google 導航
                             </a>
                         </div>
@@ -392,7 +393,7 @@
                                     </span>
                                 </p>
                             </div>
-                            <a href="https://maps.google.com/?q=桃園市中壢區正光街55之1號" target="_blank" class="flex items-center justify-center w-full py-3 bg-dark text-white hover:bg-gray-800 font-medium rounded-xl transition-colors mt-auto">
+                            <a href="https://maps.google.com/?q=桃園市中壢區正光街55之1號" target="_blank" onclick="trackNavigation()" class="flex items-center justify-center w-full py-3 bg-dark text-white hover:bg-gray-800 font-medium rounded-xl transition-colors mt-auto">
                                 <i class="ph-fill ph-navigation-arrow mr-2"></i> 開啟 Google 導航
                             </a>
                         </div>
