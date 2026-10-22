@@ -227,7 +227,7 @@
             </div>
 
             <!-- ========================================== -->
-            <!-- 嚴謹防呆版：快速租金試算專區               -->
+            <!-- 嚴謹防呆版：快速租金試算專區 (總金額打折)   -->
             <!-- ========================================== -->
             <section class="pt-12 pb-6 bg-gray-50">
                 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -242,13 +242,13 @@
                                     <p class="text-xs sm:text-sm text-gray-500">請依序選擇排檔、車款、租期與配件，系統將自動為您防呆試算</p>
                                 </div>
                             </div>
-                            <span class="self-start md:self-auto text-xs font-bold bg-amber-50 text-brand-dark px-3 py-1.5 rounded-full border border-amber-200">
-                                💡 租滿 10~24 小時自動以一日優惠計價
+                            <span class="self-start md:self-auto text-sm font-bold bg-green-50 text-green-700 px-3.5 py-1.5 rounded-full border border-green-200">
+                                💡 租滿 3天享9折、7天享8折優惠！
                             </span>
                         </div>
 
                         <div class="grid lg:grid-cols-12 gap-8 items-start">
-                            <!-- 左側：4 步驟設定區 (佔 7 欄) -->
+                            <!-- 左側：4 步驟設定區 -->
                             <div class="lg:col-span-7 space-y-6">
                                 
                                 <!-- Step 1: 選擇排檔 -->
@@ -296,13 +296,13 @@
                                             <option value="7">計時：7 小時</option>
                                             <option value="8">計時：8 小時</option>
                                             <option value="9">計時：9 小時</option>
-                                            <option value="day" selected>日租：1 日 (10~24小時優惠)</option>
+                                            <option value="day" selected>日租：1 日 (10~24小時)</option>
                                             <option value="multiday">跨日：1 日以上 (多日/逾時)</option>
                                         </select>
 
-                                        <!-- 跨日額外設定 (預設隱藏) -->
+                                        <!-- 跨日額外設定 (最多7天) -->
                                         <div id="calc-multiday-box" class="hidden flex items-center space-x-2 bg-gray-50 p-2 rounded-xl border border-gray-200">
-                                            <select id="calc-days" onchange="calculateTotal()" class="w-1/2 p-2 rounded-lg border border-gray-300 font-bold text-dark text-sm bg-white">
+                                            <select id="calc-days" onchange="calculateTotal()" class="w-1/2 p-2 rounded-lg border border-gray-300 font-bold text-dark text-sm bg-white cursor-pointer">
                                                 <option value="1">1 天</option>
                                                 <option value="2">2 天</option>
                                                 <option value="3">3 天</option>
@@ -312,7 +312,7 @@
                                                 <option value="7">7 天</option>
                                             </select>
                                             <span class="text-gray-400 font-bold">+</span>
-                                            <select id="calc-extra-hours" onchange="calculateTotal()" class="w-1/2 p-2 rounded-lg border border-gray-300 font-bold text-dark text-sm bg-white">
+                                            <select id="calc-extra-hours" onchange="calculateTotal()" class="w-1/2 p-2 rounded-lg border border-gray-300 font-bold text-dark text-sm bg-white cursor-pointer">
                                                 <option value="0">0 小時</option>
                                                 <option value="1">1 小時</option>
                                                 <option value="2">2 小時</option>
@@ -386,8 +386,11 @@
                                             <span class="text-gray-400">升降尾門</span>
                                             <span id="res-lift-price" class="font-medium text-gray-300">無此配備</span>
                                         </div>
-                                        <div id="res-discount-tip" class="hidden text-xs text-green-400 bg-green-950/60 border border-green-800/60 rounded-lg p-2 mt-2">
-                                            ✨ 逾時費已達上限，為您自動升級為「加一日」較划算！
+                                        
+                                        <!-- 總金額打折專屬區塊 -->
+                                        <div id="res-discount-row" class="flex justify-between items-center text-green-400 font-bold hidden bg-green-950/40 p-2 rounded-lg mt-2 border border-green-800/50">
+                                            <span id="res-discount-label">優惠折抵 (3天以上 9折)</span>
+                                            <span id="res-discount-amount">- NT$ 0</span>
                                         </div>
                                     </div>
 
@@ -460,15 +463,16 @@
                                 <ul class="list-disc pl-5 space-y-1 text-sm md:text-base">
                                     <li><span class="font-semibold text-dark">起租門檻：</span>計時方案基本門檻為 <strong class="text-brand-dark">2 小時</strong>。</li>
                                     <li><span class="font-semibold text-dark">日租優惠：</span>租用時間達 <strong class="text-brand-dark">10 小時至 24 小時</strong> 之間，皆直接以一日 (日租) 優惠價格計算。</li>
-                                    <li><span class="font-semibold text-dark">隔日計時：</span>跨日逾時依各車款定價，每小時加收逾時費（NT$ 170 ~ 370 不等）。</li>
+                                    <li><span class="font-semibold text-dark">多日優惠：</span>連續租用 <strong class="text-brand-dark">3天享9折、7天享8折</strong> 優惠（總金額打折）。</li>
+                                    <li><span class="font-semibold text-dark">隔日計時：</span>跨日逾時依各車款定價，每小時加收逾時費。</li>
                                 </ul>
                             </div>
                             <div class="h-px w-full bg-gray-200"></div>
                             <div>
                                 <h4 class="font-bold text-lg text-dark mb-2">🛠️ 帆布與升降尾門加價</h4>
                                 <ul class="list-disc pl-5 space-y-1 text-sm md:text-base">
-                                    <li>無提供鐵箱車。若需加裝<strong class="text-dark">「帆布」</strong>，各車款皆需加收 <strong class="text-brand-dark">NT$ 100</strong>。</li>
-                                    <li><strong class="text-dark">2.7噸(含)以上</strong>的車款（手排得利卡除外）可選擇加裝<strong class="text-dark">「升降尾門機」</strong>，需加收 <strong class="text-brand-dark">NT$ 200</strong>（標配升降機之車型則不在此限）。</li>
+                                    <li>無提供鐵箱車。若需加裝<strong class="text-dark">「帆布」</strong>，各車款皆需加收 <strong class="text-brand-dark">NT$ 100/日</strong>。</li>
+                                    <li><strong class="text-dark">2.7噸(含)以上</strong>的車款（手排得利卡除外）可選擇加裝<strong class="text-dark">「升降尾門機」</strong>，需加收 <strong class="text-brand-dark">NT$ 200/日</strong>（標配升降機之車型則不在此限）。</li>
                                 </ul>
                             </div>
                             <div class="h-px w-full bg-gray-200"></div>
@@ -1045,7 +1049,7 @@
         ];
 
         // ==========================================
-        // 線上試算器邏輯 (嚴謹防呆 + 配件天數計算)
+        // 線上試算器邏輯 (總金額打折)
         // ==========================================
         let currentCalcType = 'auto';
 
@@ -1159,11 +1163,13 @@
             const pNightAdd = parseNum(car.prices.p_night_add);
 
             const dur = document.getElementById('calc-duration-select').value;
+            
             let baseCost = 0;
             let durationText = '';
             let mileageLimit = 0;
-            let discountApplied = false;
-            let accessoryMultiplier = 1; // 記錄配件該收幾天
+            let accessoryMultiplier = 1;
+            let discountRate = 1.0;
+            let discountLabel = '';
 
             if (dur === 'day') {
                 baseCost = pDay;
@@ -1175,17 +1181,16 @@
                 const extraHours = parseInt(document.getElementById('calc-extra-hours').value, 10) || 0;
                 let extraCost = extraHours * pNightAdd;
                 
-                accessoryMultiplier = days; // 基本天數
+                accessoryMultiplier = days;
                 
-                // 若逾時費超過一整天日租，自動以多一天計價，配件也跟著多收一天
-                if (extraCost > pDay) {
+                // 逾時費超過日租，自動以多一日計價
+                if (extraCost >= pDay) {
                     extraCost = pDay;
-                    discountApplied = true;
                     accessoryMultiplier += 1; 
                 }
                 
                 baseCost = (days * pDay) + extraCost;
-                durationText = extraHours > 0 ? `${days} 天 + ${extraHours} 小時` : `${days} 天 (日租)`;
+                durationText = extraHours > 0 ? `${days} 天 + ${extraHours} 小時` : `${days} 天`;
                 mileageLimit = (days * 360) + (extraHours * 30);
             } else {
                 const hours = parseInt(dur, 10) || 2;
@@ -1194,7 +1199,6 @@
 
                 if (rawHourlyCost >= pDay) {
                     baseCost = pDay;
-                    discountApplied = true;
                     durationText = `${hours} 小時 (套用日租優惠)`;
                     mileageLimit = 360;
                 } else {
@@ -1204,7 +1208,16 @@
                 }
             }
 
-            // 計算配件費用 (依天數倍增)
+            // 判斷多日折扣
+            if (accessoryMultiplier >= 7) {
+                discountRate = 0.8;
+                discountLabel = '7天以上 8折優惠';
+            } else if (accessoryMultiplier >= 3) {
+                discountRate = 0.9;
+                discountLabel = '3天以上 9折優惠';
+            }
+
+            // 計算配件費用
             const checkCanvas = document.getElementById('check-canvas');
             const checkLift = document.getElementById('check-lift');
 
@@ -1234,7 +1247,10 @@
                 liftText = '未加選 (NT$ 0)';
             }
 
-            const total = baseCost + canvasCost + liftCost;
+            // 總金額與折扣計算
+            const rawTotal = baseCost + canvasCost + liftCost;
+            const finalTotal = Math.round(rawTotal * discountRate);
+            const discountAmount = rawTotal - finalTotal;
 
             // 更新右側明細卡片
             document.getElementById('res-car-type-badge').textContent = car.type === 'auto' ? '自排' : '手排';
@@ -1243,16 +1259,19 @@
             document.getElementById('res-base-price').textContent = `NT$ ${baseCost.toLocaleString()}`;
             document.getElementById('res-canvas-price').textContent = canvasText;
             document.getElementById('res-lift-price').textContent = liftText;
-            document.getElementById('res-total-price').textContent = total.toLocaleString();
-            document.getElementById('res-deposit').textContent = `每日 $${car.deposit} 元`;
-            document.getElementById('res-mileage').textContent = `限駛 ${mileageLimit} 公里`;
-
-            const tipEl = document.getElementById('res-discount-tip');
-            if (discountApplied) {
-                tipEl.classList.remove('hidden');
+            
+            const discountRow = document.getElementById('res-discount-row');
+            if (discountAmount > 0) {
+                discountRow.classList.remove('hidden');
+                document.getElementById('res-discount-label').textContent = `優惠折抵 (${discountLabel})`;
+                document.getElementById('res-discount-amount').textContent = `- NT$ ${discountAmount.toLocaleString()}`;
             } else {
-                tipEl.classList.add('hidden');
+                discountRow.classList.add('hidden');
             }
+
+            document.getElementById('res-total-price').textContent = finalTotal.toLocaleString();
+            document.getElementById('res-deposit').textContent = `每日 $${car.deposit} 元`;
+            document.getElementById('res-mileage').textContent = `限駛 ${mileageLimit.toLocaleString()} 公里`;
         }
 
         // ==========================================
